@@ -1,0 +1,20 @@
+.anuncio *{
+    margin: 0px;
+    width: 190px;
+    float:left;
+    margin-left: 0px;
+    display: block;
+    margin-right: 0px;
+}
+.anuncio input[type=submit]{
+    margin-left: 0px;
+}
+.anuncio input[name=banos]{
+    margin-left: 0px;
+}
+.veranuncio{
+    margin-top: 10px;
+}
+.veranuncio p{
+    color: black;
+}

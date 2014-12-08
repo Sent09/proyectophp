@@ -47,7 +47,7 @@
     $anuncios=$modeloAnuncio->getList($p, 10, $condicion, $parametros, $orderby);
     $numeroRegistros = $modeloAnuncio->count();
     $modeloFotos = new ModeloFotos($bd);
-    $url = "?palabras=$palabras&tipo=$tipo&habitaciones=$habitaciones&banos=$banos";
+    $url = "?palabras=$palabras&tipo=$tipo&habitaciones=$habitaciones&banos=$banos&ordenar=$ordenar";
     $lista = Util::getEnlacesPaginacion($p, 10, $numeroRegistros, $url);
 ?>
 <html>

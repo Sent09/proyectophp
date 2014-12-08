@@ -12,9 +12,55 @@
     $bd = new BaseDatos();
     $modeloAnuncio = new ModeloAnuncio($bd);
     $p = Leer::get("p");
-    $anuncios=$modeloAnuncio->getList($p);
+    
+    $condicion = "";
+    $parametros = array();
+    $palabras = Leer::get("palabras");
+    $tipo = Leer::get("tipo");
+    $habitaciones = Leer::get("habitaciones");
+    $banos = Leer::get("banos");
+    $ordenar = Leer::get("ordenar");
+    $idanuncio = Leer::get("idanuncio");
+    
+    if($palabras != ""){
+        $condicion .= " (titulo like :palabras or extras like :palabras or descripcion like :palabras or ciudad like :palabras or localizacion like :palabras) and";
+        $parametros["palabras"] = "%$palabras%";
+    }
+    if($tipo == "Venta"){
+        $condicion .= " tipo = :tipo ";
+        $parametros["tipo"] = "venta";
+    }elseif ($tipo == "Alquiler") {
+        $condicion .= " tipo = :tipo ";
+        $parametros["tipo"] = "alquiler";
+    }
+    if($habitaciones != ""){
+        $condicion .= "and habitaciones = :habitaciones ";
+        $parametros["habitaciones"] = $habitaciones;
+    }
+    if($banos != ""){
+        $condicion .= "and servicios = :servicios ";
+        $parametros["servicios"] = $banos;
+    }
+    if($idanuncio != ""){
+        $condicion .= "and idanuncio = :idanuncio ";
+        $parametros["idanuncio"] = $idanuncio;
+    }
+    if($ordenar == "Ascendente"){
+        $orderby = "precio ASC";
+    }
+    if($ordenar == "Descendente"){
+        $orderby = "precio DESC";
+    }
+    if($ordenar != "Ascendente" && $ordenar!= "Descendente"){
+        $orderby = "1";
+    }
+    if($condicion == ""){
+        $condicion = "1=1";
+    }
+    $anuncios=$modeloAnuncio->getList($p,10,$condicion, $parametros, $orderby);
     $numeroRegistros = $modeloAnuncio->count();
-    $lista = Util::getEnlacesPaginacion($p, 10, $numeroRegistros);
+    $url = "?palabras=$palabras&tipo=$tipo&habitaciones=$habitaciones&banos=$banos&ordenar=$ordenar";
+    $lista = Util::getEnlacesPaginacion($p, 10, $numeroRegistros,$url);
     $delete = Leer::get("delete");
     
 ?>
@@ -41,6 +87,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/css.css" rel="stylesheet">
     <script src="js/main.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -137,7 +184,41 @@
                             <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Anuncios</h3>
                         </div>
                         <div class="panel-body">
-                            <a href="crearanuncio.php"><button type="button" class="btn btn-success">Añadir anuncio</button></a></br></br>
+                            <form method="GET" action="anuncios.php">
+                                <div class="anuncio" style="display:block;float:none;">
+                                    <input class="form-control" type="text" placeholder="Id del anuncio" name="idanuncio" value="<?php echo $idanuncio; ?>"/>
+                                    <input class="form-control" type="text" placeholder="Casa, piso, Granada..." name="palabras" value="<?php echo $palabras; ?>"/>
+                                    <select class="form-control" name="tipo">
+                                        <?php 
+                                            if($tipo == "Venta"){
+                                        ?>
+                                        <option>Venta</option>
+                                        <option>Alquiler</option>
+                                        <?php
+                                            }else{
+                                        ?>
+                                        <option>Alquiler</option>
+                                        <option>Venta</option>
+                                        <?php        
+                                            }
+                                        ?>
+
+                                    </select>
+                                    <input class="form-control" type="number" placeholder="Habitaciones" name="habitaciones" value="<?php echo $habitaciones; ?>"/>
+                                    <input class="form-control" type="number" placeholder="Baños" name="banos" value="<?php echo $banos; ?>"/>
+                                    <select class="form-control" name="ordenar">
+                                        <option>Ordenar por precio:</option>
+                                        <option <?php if($ordenar=="Ascendente") echo "selected"; ?>>Ascendente</option>
+                                        <option <?php if($ordenar=="Descendente") echo "selected"; ?>>Descendente </option>
+                                    </select>
+                                    <input type="submit" class="btn btn-primary" value="Buscar"/>                  
+                                </div>
+                            </form>
+                            </br></br>
+                            <div style="display: block;float:none;width: 300px;">
+                                <a href="crearanuncio.php"><button type="button" class="btn btn-success">Añadir anuncio</button></a>
+                            </div>
+                            </br></br>
                             
                             <?php 
                             foreach ($anuncios as $key => $value) {
