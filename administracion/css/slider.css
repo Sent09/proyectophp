@@ -1,0 +1,79 @@
+/* Contenedor general */
+#slider-wrapper {
+position: relative;
+width: 800px;
+max-width: 100%;
+margin: 0 auto;
+padding: 0 10px;
+font-family: arial, sans-serif;
+font-size: 0;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+/* Contenedor slider */
+#slider { 
+position: relative;
+width: 100%;
+padding-bottom: 50%; /* Aspect ratio */
+overflow: hidden;
+border:10px solid #333;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+#slider > a {
+position:absolute;
+top:0;
+left:0;
+width: 100%;
+min-height: 100%;
+}
+/* Ajuste de las imágenes */
+#slider img {
+width: 100%;
+min-height: 100%;
+position: absolute;
+margin:0;
+padding:0; 
+border:0;
+}
+/* Texto que acompaña a cada imagen */
+#slider p {
+position: absolute;
+bottom: 5%;
+left: 0;
+display: block;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+width: 80%;
+height: 18px;
+margin:0;
+padding: 5px 0;
+border-radius: 0 20px 20px 0;
+color: #eee;
+background: #333;
+font-size: 18px;
+line-height: 18px;
+text-align:center;
+}
+/* Flechas de navegación */
+a.mas, a.menos {
+position: absolute;
+top: 50%;
+left: 10px;
+z-index: 10;
+width: 30px;
+height: 30px;
+text-align: center;
+line-height: 30px;
+font-size: 30px;
+color: white;
+background: #333;
+text-decoration: none;
+}
+a.mas {
+left: 100%;
+margin-left: -40px;
+}

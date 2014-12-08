@@ -1,0 +1,61 @@
+body{
+    margin:0px;
+    color: white;
+}
+label{
+    color: black;
+}
+h1, h3, h4, p{
+    color:black;
+}
+.todo{
+    margin-top:-20px;
+    width: 100%;
+    height: 900px;
+    background-color: white;
+}
+.bgprincipal{
+    background-image: url('../img/bg.png');
+    background-position: -300px -100px;
+    margin: 0 auto;
+    width: 1366px;
+    height: 900px;
+}
+#principal{
+    padding-top: 30px;
+    margin: 0 auto;
+    width: 800px;
+}
+#principal2, .panel-heading{
+    border-radius: 0px;
+}
+
+#principal input[name=habitaciones],#principal  input[name=banos]{    
+    width: 210px;
+    float: left;
+    margin-right: 20px;
+} 
+#principal input[type=submit]{
+    margin-top:20px;
+    width: 100%;
+}
+.anuncio *{
+    margin: 0px;
+    width: 200px;
+    float:left;
+    margin-left: 0px;
+    display: block;
+    margin-right: 0px;
+}
+.anuncio input[type=submit]{
+    margin-left: 0px;
+}
+.anuncio input[name=banos]{
+    margin-left: 0px;
+}
+.veranuncio{
+    margin-top: 10px;
+}
+.veranuncio p{
+    color: black;
+}
