@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>1 Col Portfolio - Start Bootstrap Template</title>
+    <title>TuVivienda</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/1-col-portfolio.css" rel="stylesheet">
     <link href="css/css.css" rel="stylesheet">
