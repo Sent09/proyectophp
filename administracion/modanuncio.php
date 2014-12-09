@@ -3,6 +3,9 @@
     require '../require/comun.php';
     $sesion = new SesionSingleton();
     $v = $sesion->get('usuario');
+    /*
+     * Comprueba que el usuario sea administrador
+     */
     if($v != "administrador"){
         header("Location: index.php");
     }
@@ -111,6 +114,7 @@
                     </div>
                 </div>
                 <!-- --------------------------------------------CONTENIDO AQUI-------------------------------------------- -->
+                <!-- Segun la respuesta muestra si se modifica bien o no -->
                 <?php 
                     $r = Leer::get("r");
                     if($r==1){

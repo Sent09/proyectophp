@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+    /*
+     * Comprueba que el usuario sea administrador
+     */
     require '../require/comun.php';
     $sesion = new SesionSingleton();
     $v = $sesion->get('usuario');
@@ -105,6 +108,7 @@
                     </div>
                 </div>
                 <!-- --------------------------------------------CONTENIDO AQUI-------------------------------------------- -->
+                <!-- Comprobar errores al crear anuncio -->
                 <?php 
                     $r = Leer::get("r");
                     if($r==1){

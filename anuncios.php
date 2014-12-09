@@ -12,7 +12,11 @@
     $habitaciones = Leer::get("habitaciones");
     $banos = Leer::get("banos");
     $ordenar = Leer::get("ordenar");
-    
+    /*
+     * Obtiene los datos por get. Segun los datos hace el select de una forma u otra
+     * por un filtrado que hace este. Puede ser por palabras especificas, tipo, habitaciones,servicios
+     * y ordena si es necesario.
+     */
     if($palabras != ""){
         $condicion .= " (titulo like :palabras or extras like :palabras or descripcion like :palabras or ciudad like :palabras or localizacion like :palabras) and";
         $parametros["palabras"] = "%$palabras%";

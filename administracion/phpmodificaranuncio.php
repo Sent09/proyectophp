@@ -8,6 +8,9 @@ $idanuncioPK = Leer::get("id");
 $titulo = Leer::post("titulo");
 $precio = Leer::post("precio");
 $tipoHtml = Leer::post("tipo");
+/*
+ * Obtiene los datos por post, edita el anuncio y sube las fotos nuevas si las hay.
+ */
 if($tipoHtml == "Alquiler"){
     $tipo = "alquiler";
 }else{

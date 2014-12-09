@@ -4,7 +4,11 @@ include '../clases/anuncio/Anuncio.php';
 include '../clases/anuncio/ModeloAnuncio.php';
 include '../clases/fotos/Fotos.php';
 include '../clases/fotos/ModeloFotos.php';
-
+/*
+ * Crear anuncio, obtiene los datos por post y lo crea.
+ * A continuación sube las fotos y mete los nombres en 
+ * la tabla de las fotos
+ */
 $titulo = Leer::post("titulo");
 $precio = Leer::post("precio");
 $tipoHtml = Leer::post("tipo");

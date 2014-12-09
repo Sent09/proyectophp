@@ -7,6 +7,10 @@
     include 'clases/fotos/ModeloFotos.php';
     $idanuncio = Leer::get("idanuncio");
     $bd = new BaseDatos();
+    /*
+     * Muestra todos los datos de un anuncio segun el id del anuncio. 
+     * También muestra sus fotos.
+     */
     $modeloAnuncio = new ModeloAnuncio($bd);
     $anuncio=$modeloAnuncio->get($idanuncio);
     $modeloFotos = new ModeloFotos($bd);

@@ -7,6 +7,9 @@ $clave = Leer::post("clave");
 $bd = new BaseDatos();
 $modeloUsuario = new ModeloUsuario($bd);
 $resultado = $modeloUsuario->usuarioExiste($login, $clave);
+/*
+ * Logea al usuario y crea las sesiones
+ */
 if($resultado == "administrador"){   
     $sesion = new SesionSingleton();
     $sesion->set("usuario","administrador");

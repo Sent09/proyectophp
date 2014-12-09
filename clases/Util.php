@@ -1,6 +1,10 @@
 <?php
 
 class Util {
+    /*
+     * Se le pasa la pagina actual, el numero de registros por página, el numero de registros totales y un link si se tiene.
+     * Esta funcion crea un html con la pagina actual y las 4 mas proximas.
+     */
    public static function getEnlacesPaginacion($p, $paginas, $numeroRegistros, $href=""){ 
         $enlaces  = array();       
         $ultimoCalculo = $numeroRegistros / $paginas;

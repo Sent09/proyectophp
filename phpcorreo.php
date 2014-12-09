@@ -1,4 +1,7 @@
 <?php
+/*
+ * Envia un correo via gmail al administrador.
+ */
 require 'require/comun2.php';
 $idanuncio = Leer::post("idanuncio");
 $titulo = Leer::post("titulo");

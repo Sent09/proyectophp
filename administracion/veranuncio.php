@@ -11,6 +11,9 @@
     include '../clases/anuncio/ModeloAnuncio.php';
     include '../clases/fotos/Fotos.php';
     include '../clases/fotos/ModeloFotos.php';
+    /*
+     * Lista los datos de un anuncio segun su id de anuncio. Tambien muestra sus fotos.
+     */
     $bd = new BaseDatos();
     $modeloAnuncio = new ModeloAnuncio($bd);
     $id = Leer::get("id");

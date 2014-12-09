@@ -10,6 +10,9 @@
     include '../clases/anuncio/ModeloAnuncio.php';
     include '../clases/fotos/Fotos.php';
     include '../clases/fotos/ModeloFotos.php';
+    /*
+     * Elimina fotos por el id de la foto
+     */
     $bd = new BaseDatos();
     $modeloFotos = new ModeloFotos($bd);
     $imagenes = Leer::post("imagenes");

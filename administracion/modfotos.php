@@ -3,6 +3,9 @@
     require '../require/comun.php';
     $sesion = new SesionSingleton();
     $v = $sesion->get('usuario');
+    /*
+     * Comprueba que el usuario sea administrador
+     */
     if($v != "administrador"){
         header("Location: index.php");
         exit();

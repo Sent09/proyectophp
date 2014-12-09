@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+    /*
+     * Comprueba que el usuario sea administrador
+     */
     require '../require/comun.php';
     $sesion = new SesionSingleton();
     $v = $sesion->get('usuario');
@@ -21,7 +24,9 @@
     $banos = Leer::get("banos");
     $ordenar = Leer::get("ordenar");
     $idanuncio = Leer::get("idanuncio");
-    
+    /*
+     * Filtrar los datos para hacer la busqueda por los parametros del usuario
+     */
     if($palabras != ""){
         $condicion .= " (titulo like :palabras or extras like :palabras or descripcion like :palabras or ciudad like :palabras or localizacion like :palabras) and";
         $parametros["palabras"] = "%$palabras%";
@@ -60,6 +65,9 @@
     $anuncios=$modeloAnuncio->getList($p,10,$condicion, $parametros, $orderby);
     $numeroRegistros = $modeloAnuncio->count();
     $url = "?palabras=$palabras&tipo=$tipo&habitaciones=$habitaciones&banos=$banos&ordenar=$ordenar";
+    /*
+     *Hace la paginacion
+     */
     $lista = Util::getEnlacesPaginacion($p, 10, $numeroRegistros,$url);
     $delete = Leer::get("delete");
     

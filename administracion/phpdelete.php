@@ -4,7 +4,9 @@
     include '../clases/fotos/ModeloFotos.php';
     include '../clases/anuncio/Anuncio.php';
     include '../clases/anuncio/ModeloAnuncio.php';
-    
+    /*
+     * Borra los anuncios por el id del anuncio
+     */
     $baseDatos = new BaseDatos(); 
     $id = Leer::get("id");    
     $modeloFotos = new ModeloFotos($baseDatos);

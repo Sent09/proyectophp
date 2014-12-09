@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <?php
     require '../require/comun.php';
+    /*
+     * Comprueba que el usuario sea administrador
+     */
     $sesion = new SesionSingleton();
     $v = $sesion->get('usuario');
     if($v != "administrador"){
