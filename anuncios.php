@@ -65,6 +65,7 @@
 
     <title>TuVivienda</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/1-col-portfolio.css" rel="stylesheet">
     <link href="css/css.css" rel="stylesheet">
 
@@ -73,7 +74,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-    <body>
+    <body style="background-color: white;">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -88,6 +89,10 @@
                 </button>
                 <a class="navbar-brand" href="#">TuVivienda</a>
             </div>
+                <?php 
+                    include 'usuario/login.php';
+                ?>
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -100,7 +105,6 @@
         </div>
         <!-- /.container -->
     </nav>
-
     <!-- Page Content -->
     <div class="container">
         <form method="GET" action="anuncios.php">

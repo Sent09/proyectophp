@@ -4,15 +4,12 @@
      * Comprueba que el usuario sea administrador
      */
     require '../require/comun.php';
-    $sesion = new SesionSingleton();
-    $v = $sesion->get('usuario');
-    if($v != "administrador"){
-        header("Location: index.php");
-        exit();
-    }
+    $bd = new BaseDatos();
+    $modeloUsuario =  new ModeloUsuario($bd);
+    $sesion->administrador("../index.php");
+    
     include '../clases/anuncio/Anuncio.php';
     include '../clases/anuncio/ModeloAnuncio.php';
-    $bd = new BaseDatos();
     $modeloAnuncio = new ModeloAnuncio($bd);
     $p = Leer::get("p");
     
@@ -127,10 +124,6 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Administrador <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
                             <a href="phpcerrarsesion.php"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a>
                         </li>
                     </ul>
@@ -144,6 +137,9 @@
                     </li>
                     <li class="active">
                         <a href="anuncios.php"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncios</a>
+                    </li>
+                    <li>
+                        <a href="../backusuario/index.php"><i class="fa fa-fw fa-user"></i> Usuarios</a>
                     </li>
                 </ul>
             </div>

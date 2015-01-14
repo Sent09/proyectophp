@@ -1,11 +1,8 @@
 <?php
     require '../require/comun.php';
-    $sesion = new SesionSingleton();
-    $v = $sesion->get('usuario');
-    if($v != "administrador"){
-        header("Location: index.php");
-        exit();
-    }
+    $bd = new BaseDatos();
+    $modeloUsuario =  new ModeloUsuario($bd);
+    $sesion->administrador("index.php");
     include '../clases/anuncio/Anuncio.php';
     include '../clases/anuncio/ModeloAnuncio.php';
     include '../clases/fotos/Fotos.php';
@@ -13,7 +10,6 @@
     /*
      * Elimina fotos por el id de la foto
      */
-    $bd = new BaseDatos();
     $modeloFotos = new ModeloFotos($bd);
     $imagenes = Leer::post("imagenes");
     $idanuncio = Leer::post("idanuncio");

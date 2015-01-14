@@ -4,7 +4,7 @@ class SesionSingleton {
 
     private static $instancia;
 
-    function __construct($nombre="") {
+    private function __construct($nombre="") {
         if ($nombre !== "") {
             session_name($nombre);
         }
@@ -45,7 +45,7 @@ class SesionSingleton {
         $array = array();
         foreach ($_SESSION as $key => $value) {
             $array[] = $key;
-        }
+        } 
         return $array;
     }
 
@@ -54,12 +54,26 @@ class SesionSingleton {
     }
 
     function isAutentificado(){
+//        if(Entorno::getNavegadorCliente()!=$this->get("__navegador") || Entorno::getIpCliente()!=$this->get("__ip")){
+//            $this->cerrar();
+//            return false;
+//        }
+//        if(time()-$this->get("__timeout")>Configuracion::TIMEOUT){
+//            $this->cerrar();
+//            return false; 
+//        }
+//        $this->set("__timeout", time());
         return isset($_SESSION["__usuario"]);
     }
 
-    function setUsuario($usuario){
+    function setUsuario($usuario, $bd){
         if($usuario instanceof Usuario){
             $this->set("__usuario",$usuario);
+//            $this->set("__ip", Entorno::getIpCliente());
+//            $this->set("__navegador", Entorno::getNavegadorCliente());
+//            $this->set("__timeout", time());
+            $mdusuario = new ModeloUsuario($bd);
+            $mdusuario->actualizarFechaLogin($usuario, date("Y-m-d"));
         }
     }
     
@@ -68,8 +82,24 @@ class SesionSingleton {
             return $this->get("__usuario");
         return null;
     }
-    
-    private function redirigir($destino="index.php"){
+    function autentificado($destino="index.php"){
+        if(!$this->isAutentificado()){
+            $this->redirigir($destino);
+        }
+    }
+    function administrador($destino="login.php"){
+        $usuario = $this->getUsuario();
+        if(!$this->isAutentificado() || !$usuario->getIsroot())
+            $this->redirigir($destino);
+    }
+    function comprobarAdministrador(){
+        $usuario = $this->getUsuario();
+        if($this->isAutentificado() && $usuario->getIsroot())
+            return true;
+        else
+            return false;
+    }
+    function redirigir($destino="index.php"){
         header("Location:".$destino);
         exit;
     }

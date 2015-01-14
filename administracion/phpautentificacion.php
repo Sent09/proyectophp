@@ -6,17 +6,11 @@ $login = Leer::post("login");
 $clave = Leer::post("clave");
 $bd = new BaseDatos();
 $modeloUsuario = new ModeloUsuario($bd);
-$resultado = $modeloUsuario->usuarioExiste($login, $clave);
-/*
- * Logea al usuario y crea las sesiones
- */
-if($resultado == "administrador"){   
-    $sesion = new SesionSingleton();
-    $sesion->set("usuario","administrador");
-    $usuario = $modeloUsuario->get($login);
-    $token = md5($usuario->getEmail().Configuracion::PEZARANA.$usuario->getLogin());
-    $sesion->set("token",$token);
-    header("Location: admin.php");
+$usuario = $modeloUsuario->login($login, $clave);
+if($usuario == false){
+    $sesion->cerrar();
+    header("Location: index.php?r=-1");
 }else{
-    header("Location: index.php");;
+    $sesion->setUsuario($usuario, $bd);
+    header("Location: admin.php ");
 }
