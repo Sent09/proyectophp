@@ -1,11 +1,16 @@
 <?php
     require '../require/comun.php';
-
-    $baseDatos = new BaseDatos();
-    $modeloUsuario =  new ModeloUsuario($baseDatos);
     $sesion->administrador("../usuario/login.php");
 
-    
+    $fila = $sesion->getUsuario();
+    $login = $fila->getLogin();
+    $clave = $fila->getClave();
+    $nombre = $fila->getNombre();
+    $apellidos = $fila->getApellidos();
+    $email = $fila->getEmail();
+    $isactivo = $fila->getIsactivo();
+    $isroot = $fila->getIsroot();
+    $rol = $fila->getRol();
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +43,7 @@
     <script>
         window.addEventListener("load", function(){
         <?php 
-            $resultado = Leer::get("resultado");
+            $resultado = Leer::get("r");
             if($resultado == 1){
         ?>
             $.toaster({ priority : 'success', title : 'Bien', message : 'La acción se ha realizado con exito.'});
@@ -51,11 +56,6 @@
             }
         ?> 
         });
-    </script>
-    <script>
-        function confirm_click(){
-            return confirm("¿Estás seguro de borrar el usuario?");
-        }
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -131,88 +131,38 @@
                 </div>
                 <!-- --------------------------------------------CONTENIDO AQUI-------------------------------------------- -->
                 <div class="panel-heading">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Usuarios</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Modificar mi perfil</h3>
                         </div>
                         <div class="panel-body">
-                            <div>
-                                <h3>Lista de usuarios</h3>    
-                                <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Login</th>
-                                        <th>Nombre y apellido</th>
-                                        <th>Opcion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    $p = Leer::get("p");
-                                    $fila = $modeloUsuario->getList($p, 10);
-                                    $numeroRegistros = $modeloUsuario->count();
-                                    $lista = Util::getEnlacesPaginacion($p, 10, $numeroRegistros);
-                                    foreach( $fila as $key =>$value){
-                                        if($value->getLogin() != $sesion->get("__usuario")->getLogin()){
-                                ?>
-                                <tr>
-                                    <td><?php echo $fila[$key]->getLogin(); ?></td>
-                                    <td><a class='editar' href='view.php?login=<?php echo $fila[$key]->getLogin(); ?>'><?php echo $fila[$key]->getNombre(); echo " ".$fila[$key]->getApellidos(); ?></a></td>
-                                    <td><a class='borrar' onclick="return confirm_click();" href='phpdelete.php?login=<?php echo $fila[$key]->getLogin(); ?>'>Borrar</a></td>
-                                </tr>
-                                <?php
-                                    }
-                                } ?>
-                                </tbody>
-                            </table>
-                                <ul class="pagination">
-                                <?php 
-                                    echo $lista["inicio"];
-                                    echo $lista["anterior"];
-                                    echo $lista["primero"];
-                                    echo $lista["segundo"]; 
-                                    echo $lista["actual"]; 
-                                    echo $lista["cuarto"];
-                                    echo $lista["quinto"]; 
-                                    echo $lista["siguiente"];
-                                    echo $lista["ultimo"];
-                                ?>
-                               
-                            </ul>
-                            </div>
-                            <div>
-                                <h3>Insertar usuario</h3>
-                                <form action="phpinsert.php" method="POST">
-                                    <label>Login: </label><input type="text" class="form-control" placeholder="Login" name="login" value="" required/><br>
-                                    <label>Clave: </label><input type="text" class="form-control" placeholder="Clave" name="clave" value="" required/><br>
-                                    <label>Nombre: </label><input type="text" class="form-control" placeholder="Nombre" name="nombre" value="" required/><br>
-                                    <label>Apellidos: </label><input type="text" class="form-control" placeholder="Apellidos" name="apellidos" value="" required/><br>
-                                    <label>E-Mail: </label><input type="text" class="form-control" placeholder="E-mail" name="email" value="" required/><br>
-                                    <label>Está activo: </label>
+                            <form action="phpupdateadmin.php" method="POST">
+                                <label>Login: </label><input type="text" value="<?php echo $login;?>" class="form-control" placeholder="Login" name="login" value="" required/><br>
+                                <label>Clave Vieja: </label><input type="password" class="form-control" placeholder="Clave vieja" name="clavevieja" value=""/><br>
+                                <label>Clave nueva: </label><input type="password" class="form-control" placeholder="Clave nueva" name="clavenueva1" value=""/><br>
+                                <label>Repetir clave: </label><input type="password" class="form-control" placeholder="Repetir clave" name="clavenueva2" value=""/><br>
+                                <label>Nombre: </label><input type="text" value="<?php echo $nombre;?>" class="form-control" placeholder="Nombre" name="nombre" value="" required/><br>
+                                <label>Apellidos: </label><input type="text" value="<?php echo $apellidos;?>" class="form-control" placeholder="Apellidos" name="apellidos" value="" required/><br>
+                                <label>E-Mail: </label><input type="text" value="<?php echo $email;?>" class="form-control" placeholder="E-mail" name="email" value="" required/><br>
+                                <label>Está activo: </label>
                                     <select class="form-control" name="isactivo">
                                         <option value="1">Si</option>
-                                        <option value="0">No</option>
+                                        <option value="0" <?php if($isactivo == "0"){ echo "selected"; }?>>No</option>
                                     </select>
                                     <br>
                                     <label>Es root: </label>
                                     <select class="form-control" name="isroot">
                                         <option value="1">Si</option>
-                                        <option value="0">No</option>
+                                        <option value="0" <?php if($isroot == "0"){ echo "selected"; }?>>No</option>
                                     </select><br>
                                     <label>Rol: </label>
                                     <select class="form-control" name="rol">
-                                        <option value="usuario">Usuario</option>
-                                        <option value="administrador">Administrador</option>
+                                        <option value="usuario">Usuario</option>                                        
+                                        <option value="administrador" <?php if($rol == "administrador"){ echo "selected"; }?>>Administrador</option>
                                     </select>
                                     <br>
-                                    <input class="btn btn-success" type="submit" value="Insertar"/>
-                                </form>
-                                <a href="modadmin.php">Modificar mi perfil</a>
-                                <form action="" method="POST" id="formulario">
-                                    <input type="hidden" name="id" id="idformulario"/>
-                                </form>
-                            </div>
-                            
+                                <input type="submit" class="btn btn-warning" value="Actualizar"/>
+                            </form>                            
                         </div>
                     </div>
                 </div>
@@ -223,8 +173,6 @@
         <!-- /#page-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
-
 
 
     <!-- Morris Charts JavaScript -->
@@ -235,8 +183,3 @@
 </body>
 
 </html>
-
-<?php 
-    $baseDatos->closeConsulta();
-    $baseDatos->closeConexion();
-?>

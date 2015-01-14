@@ -1,6 +1,5 @@
 <?php
 require_once '../require/comun.php';
-$claveVieja = Leer::post("clavevieja");
 $login = Leer::post("login");
 $nombre = Leer::post("nombre");
 $apellidos = Leer::post("apellidos");
